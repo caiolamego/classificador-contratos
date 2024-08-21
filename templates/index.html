@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assistente de Contratos</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Anek+Devanagari:wght@100..800&display=swap');
+    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <img src="{{ url_for('static', filename='img/logo2.gif') }}" alt="Descrição da Imagem" class="image-logo">
+    <div class="container">
+        <h1 class="anek-devanagari">Olá, sou o assistente Dave! Escreva uma Cláusula para classificarmos como abusiva ou não abusiva</h1>
+        <div id="chatbox" class="chatbox">
+            {% for message in messages %}
+            <div class="message {% if message.sender == 'user' %}user{% else %}bot{% endif %}">
+                <p>{{ message.text }}</p>
+            </div>
+            {% endfor %}
+        </div>
+        <form class="form" action="/send_message" method="post">
+            <textarea id="message" name="message" rows="3" cols="50"></textarea><br><br>
+            <input type="submit" value="Enviar">
+        </form>
+    </div>
+    <script>
+        function scrollToBottom() {
+            var chatbox = document.querySelector('.chatbox');
+            chatbox.scrollTop = chatbox.scrollHeight;
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            scrollToBottom();
+        });
+
+        // Scroll to bottom after new messages are added
+        const observer = new MutationObserver(scrollToBottom);
+        observer.observe(document.querySelector('.chatbox'), { childList: true });
+        
+        // document.querySelector('.form').addEventListener('submit', function(event) {
+        //     event.preventDefault(); // Evita o recarregamento da página
+        //     var textarea = document.querySelector('textarea');
+        //     var message = textarea.value;
+        //     if (message.trim() !== '') {
+        //         var chatbox = document.querySelector('.chatbox');
+        //         var newMessage = document.createElement('div');
+        //         newMessage.className = 'message user';
+        //         newMessage.textContent = message;
+        //         chatbox.appendChild(newMessage);
+        //         textarea.value = ''; // Limpa a área de texto
+        //         scrollToBottom();
+        //     }
+        // });
+    </script>
+</body>
+</html>
+
+

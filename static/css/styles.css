@@ -1,0 +1,171 @@
+.chatbox {
+    background-color: #000000;
+    border: solid 1px;
+    border-color: white;
+    padding: 15px;
+    border-radius: 30px;
+    height: 300px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    scroll-behavior: smooth;
+    padding-bottom: 20px;
+}
+
+.message:last-child {
+    margin-bottom: 0; /* Remove margem inferior da última mensagem */
+}
+
+.form{
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    align-content: center;
+}
+
+.message {
+    padding: 10px;
+    border-radius: 15px;
+    margin-bottom: 10px;
+    max-width: 60%;
+    word-wrap: break-word;
+}
+
+.user {
+    background-color: #ffffff;
+    align-self: flex-end;
+    color: black;
+}
+
+.bot {
+    background-color: #303030;
+    align-self: flex-start;
+    color: white;
+}
+
+.container{
+    width: 50%;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    align-content: center;
+}
+
+.image-logo {
+    max-width: 700px    ;
+    margin-bottom: 20px;
+    display: block; /* Garante que a imagem seja exibida como um bloco */
+}
+
+textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    margin-top: 5%;
+    width: 80%;
+    border-radius: 50px;
+    align-items: center;
+    text-align: center;
+    align-content: center;
+    justify-content: center;
+}
+
+input[type="submit"] {
+    background-color: #000000;
+    border-style: solid;
+    border-color: white;
+    color: white;
+    border: solid 1px;
+    padding: 10px 20px;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    font-weight: bold;
+}
+
+input[type="submit"]:hover {
+    background-color: #ffffff;
+    color: black;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: "Anek Devanagari", sans-serif; /* Aplica a fonte ao body */
+}
+
+body {
+    font-family: "Anek Devanagari", sans-serif; /* Garante que a fonte seja aplicada no body */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /*background: linear-gradient(to right, #313131 0%, #2b2b2b 40%, #1c1c1c 70%, #000000 100%); */
+    background-color: #000000;
+    color: #ffffff;
+}
+
+h1 {
+    color: #ffffff;
+    font-size: 20px;
+    border-right: 5px solid;
+    width: 90%;
+    white-space: nowrap;
+    margin: 50px;
+    margin-top: 10px;
+    margin-bottom: 30px;
+    overflow: hidden;
+    animation: 
+        typing 4s steps(96),
+        cursor .4s step-end infinite alternate;
+}
+
+@keyframes cursor {
+    50% { border-color: transparent }
+}
+
+@keyframes typing {
+    from { width: 0 }
+}
+
+/* Estiliza a barra de rolagem inteira */
+.chatbox::-webkit-scrollbar {
+    width: 12px; /* Largura da barra de rolagem */
+}
+
+/* Estiliza o "track" (trilho) da barra de rolagem */
+.chatbox::-webkit-scrollbar-track {
+    background: #1f1f1f; /* Cor do fundo do trilho */
+    border-radius: 8px; /* Bordas arredondadas no trilho */
+}
+
+/* Estiliza o polegar (thumb) da barra de rolagem */
+.chatbox::-webkit-scrollbar-thumb {
+    background-color: #555; /* Cor do polegar */
+    border-radius: 8px; /* Bordas arredondadas no polegar */
+    border: 3px solid #1f1f1f; /* Espaço entre o polegar e o trilho */
+}
+
+/* Estiliza o polegar da barra de rolagem ao ser pressionado */
+.chatbox::-webkit-scrollbar-thumb:active {
+    background-color: #888; /* Cor do polegar ao ser clicado */
+}
+
+/* Estiliza os botões de rolagem (opcional) */
+.chatbox::-webkit-scrollbar-button {
+    background: #333; /* Cor dos botões de rolagem */
+    display: none; /* Esconde os botões de rolagem, caso não precise deles */
+}
+
+/* Estiliza a barra de rolagem horizontal (opcional) */
+.chatbox::-webkit-scrollbar-horizontal {
+    height: 12px; /* Altura da barra de rolagem horizontal */
+}
+
+/* Estiliza o polegar da barra de rolagem horizontal */
+.chatbox::-webkit-scrollbar-thumb-horizontal {
+    background-color: #555; /* Cor do polegar horizontal */
+    border-radius: 8px; /* Bordas arredondadas no polegar horizontal */
+}
+
