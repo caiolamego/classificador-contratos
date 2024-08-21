@@ -7,9 +7,35 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Anek+Devanagari:wght@100..800&display=swap');
     </style>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/app.css') }}">
 </head>
 <body>
+    <div class="sidebar">
+        <div class="nav-item">
+            <i class="icon-home"></i>
+            <span class="label">Dashboard</span>
+        </div>
+        <div class="nav-item">
+            <i class="icon-message"></i>
+            <span class="label">Message</span>
+        </div>
+        <div class="nav-item">
+            <i class="icon-users"></i>
+            <span class="label">Users</span>
+        </div>
+        <div class="nav-item">
+            <i class="icon-rewards"></i>
+            <span class="label">Rewards</span>
+        </div>
+        <div class="nav-item">
+            <i class="icon-reports"></i>
+            <span class="label">Reports</span>
+        </div>
+        <div class="nav-item">
+            <i class="icon-settings"></i>
+            <span class="label">Settings</span>
+        </div>
+    </div>
     <img src="{{ url_for('static', filename='img/logo2.gif') }}" alt="Descrição da Imagem" class="image-logo">
     <div class="container">
         <h1 class="anek-devanagari">Olá, sou o assistente Dave! Escreva uma Cláusula para classificarmos como abusiva ou não abusiva</h1>

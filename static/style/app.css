@@ -169,3 +169,61 @@ h1 {
     border-radius: 8px; /* Bordas arredondadas no polegar horizontal */
 }
 
+.sidebar {
+    height: 80vh;
+    width: 60px;
+    background-color: #252525;
+    transition: width 0.3s ease;
+    overflow: hidden;
+    position: fixed;
+    left: 0;
+    top: 50%; /* Centraliza verticalmente */
+    transform: translateY(-50%); /* Ajusta para que a centralização seja correta */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+    border-radius: 50px;
+    margin-left: 20px;
+    justify-content: center; /* Centraliza os itens dentro da sidebar */
+}
+
+.sidebar:hover {
+    width: 200px;
+}
+
+.nav-item {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    padding: 15px;
+    cursor: pointer;
+    color: #000;
+}
+
+.nav-item .icon-home:before { content: "\1F3E0"; } /* Home icon */
+.nav-item .icon-message:before { content: "\1F4AC"; } /* Message icon */
+.nav-item .icon-users:before { content: "\1F465"; } /* Users icon */
+.nav-item .icon-rewards:before { content: "\1F3C6"; } /* Rewards icon */
+.nav-item .icon-reports:before { content: "\1F4CA"; } /* Reports icon */
+.nav-item .icon-settings:before { content: "\2699"; } /* Settings icon */
+
+.nav-item i {
+    font-size: 24px;
+    display: block;
+    width: 60px;
+    text-align: center;
+}
+
+.label {
+    font-size: 16px;
+    margin-left: 10px;
+    opacity: 0;
+    white-space: nowrap;
+    transition: opacity 0.3s ease;
+}
+
+.sidebar:hover .label {
+    opacity: 1;
+}
