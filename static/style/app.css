@@ -13,7 +13,7 @@
 }
 
 .message:last-child {
-    margin-bottom: 0; /* Remove margem inferior da última mensagem */
+    margin-bottom: 0; /* Remove margem infer    ior da última mensagem */
 }
 
 .form{
@@ -172,7 +172,7 @@ h1 {
 .sidebar {
     height: 80vh;
     width: 60px;
-    background-color: #252525;
+    background-color: #181818;
     transition: width 0.3s ease;
     overflow: hidden;
     position: fixed;
@@ -183,9 +183,12 @@ h1 {
     flex-direction: column;
     align-items: center;
     padding-top: 20px;
-    border-radius: 50px;
+    border-radius: 15px;
     margin-left: 20px;
     justify-content: center; /* Centraliza os itens dentro da sidebar */
+    border: 1px;
+    border: solid 0.05rem;
+    border-color: white;
 }
 
 .sidebar:hover {
@@ -196,24 +199,16 @@ h1 {
     width: 100%;
     display: flex;
     align-items: center;
-    justify-content: start;
     padding: 15px;
     cursor: pointer;
-    color: #000;
+    color: #ffffff;
+    transition: background-color 0.3s ease; /* Adiciona uma transição para a cor de fundo */
 }
 
-.nav-item .icon-home:before { content: "\1F3E0"; } /* Home icon */
-.nav-item .icon-message:before { content: "\1F4AC"; } /* Message icon */
-.nav-item .icon-users:before { content: "\1F465"; } /* Users icon */
-.nav-item .icon-rewards:before { content: "\1F3C6"; } /* Rewards icon */
-.nav-item .icon-reports:before { content: "\1F4CA"; } /* Reports icon */
-.nav-item .icon-settings:before { content: "\2699"; } /* Settings icon */
-
-.nav-item i {
-    font-size: 24px;
-    display: block;
-    width: 60px;
-    text-align: center;
+.nav-item img {
+    width: 35px; /* Ajuste o tamanho da imagem se necessário */
+    height: 35px; /* Garante que a altura da imagem seja igual à largura */
+    margin-right: 10px; /* Espaço entre a imagem e o texto */
 }
 
 .label {
@@ -222,8 +217,33 @@ h1 {
     opacity: 0;
     white-space: nowrap;
     transition: opacity 0.3s ease;
+    display: flex;
+    align-items: center; /* Garante que o texto fique alinhado verticalmente com a imagem */
 }
 
 .sidebar:hover .label {
     opacity: 1;
+}
+
+.icon-img {
+    width: 35px;
+    height: 35px; /* Ajusta a altura da imagem para igualar a largura */
+    object-fit: contain; /* Mantém a proporção da imagem */
+    transition: transform 0.3s ease; /* Adicione uma transição para o efeito de hover */
+    padding-left: 12px;
+}
+
+.sidebar:hover .icon-img {
+    transform: translateX(10px); /* Ajuste o deslocamento da imagem no hover */
+}
+
+.nav-item .icon-img {
+    width: 35px;
+    object-fit: contain; /* Mantém a proporção da imagem */
+    display: block; /* Garante que a imagem seja exibida como um bloco */
+    transition: transform 0.3s ease; /* Adicione uma transição para o efeito de hover */
+}
+
+.sidebar:hover .nav-item .icon-img {
+    transform: translateX(10px); /* Ajuste o deslocamento da imagem no hover */
 }

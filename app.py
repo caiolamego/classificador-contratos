@@ -1,8 +1,4 @@
-import spacy
 from flask import Flask, redirect, render_template, request, url_for
-
-# Carregar o modelo de NLP
-nlp = spacy.load("pt_core_news_sm")
 
 app = Flask(__name__)
 
@@ -25,7 +21,15 @@ def identificar_clausulas_abusivas(texto):
 
 @app.route('/')
 def home():
-    return render_template('index.html', messages=messages)
+    return render_template('home.html')
+
+@app.route('/botContrato')
+def botContrato():
+    return render_template('botContrato.html', messages=messages)
+
+@app.route('/botDisparidade')
+def botDisparidade():
+    return render_template('botDisparidade.html')
 
 @app.route('/send_message', methods=['POST'])
 def send_message():
@@ -40,8 +44,7 @@ def send_message():
         bot_response = "Nenhuma cláusula abusiva identificada."
 
     messages.append({'sender': 'bot', 'text': bot_response})
-    return redirect(url_for('home'))
+    return redirect(url_for('botContrato'))
 
 if __name__ == '__main__':
     app.run(debug=True, port=5001)
-

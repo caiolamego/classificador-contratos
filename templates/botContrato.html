@@ -11,28 +11,20 @@
 </head>
 <body>
     <div class="sidebar">
-        <div class="nav-item">
-            <i class="icon-home"></i>
-            <span class="label">Dashboard</span>
+        <div class="nav-item" onclick="redirectToHome()">
+            <img src="{{ url_for('static', filename='img/home.png') }}" alt="Descrição da Imagem" class="icon-img">
+            <span class="label">Home</span>
         </div>
         <div class="nav-item">
-            <i class="icon-message"></i>
-            <span class="label">Message</span>
+            <img src="{{ url_for('static', filename='img/disparidade.png') }}" alt="Descrição da Imagem" class="icon-img">
+            <span class="label">Disparidades</span>
+        </div>
+        <div class="nav-item" onclick="redirectToContract()">
+            <img src="{{ url_for('static', filename='img/attention.png') }}" alt="Descrição da Imagem" class="icon-img">
+            <span class="label">Clausulas Abusivas</span>
         </div>
         <div class="nav-item">
-            <i class="icon-users"></i>
-            <span class="label">Users</span>
-        </div>
-        <div class="nav-item">
-            <i class="icon-rewards"></i>
-            <span class="label">Rewards</span>
-        </div>
-        <div class="nav-item">
-            <i class="icon-reports"></i>
-            <span class="label">Reports</span>
-        </div>
-        <div class="nav-item">
-            <i class="icon-settings"></i>
+            <img src="{{ url_for('static', filename='img/gear.png') }}" alt="Descrição da Imagem" class="icon-img">
             <span class="label">Settings</span>
         </div>
     </div>
@@ -55,6 +47,18 @@
         function scrollToBottom() {
             var chatbox = document.querySelector('.chatbox');
             chatbox.scrollTop = chatbox.scrollHeight;
+        }
+
+        function redirectToHome() {
+            window.location.href = '/';
+        }
+
+        function redirectToBotContract() {
+            window.location.href = '/botContrato';
+        }
+
+        function redirectToBotDisparidade() {
+            window.location.href = '/botDisparidade';
         }
 
         document.addEventListener('DOMContentLoaded', function() {
