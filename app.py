@@ -1,4 +1,4 @@
-from flask import Flask, redirect, render_template, request, url_for
+from flask import Flask, jsonify, render_template, request, url_for
 
 app = Flask(__name__)
 
@@ -44,7 +44,10 @@ def send_message():
         bot_response = "Nenhuma cláusula abusiva identificada."
 
     messages.append({'sender': 'bot', 'text': bot_response})
-    return redirect(url_for('botContrato'))
+
+    # Retorna a resposta como JSON para ser tratada pelo JavaScript
+    return jsonify({'bot_response': bot_response})
 
 if __name__ == '__main__':
     app.run(debug=True, port=5001)
+

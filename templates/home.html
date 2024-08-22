@@ -7,7 +7,7 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Anek+Devanagari:wght@100..800&display=swap');
     </style>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style/app.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/home.css') }}">
 </head>
 <body>
     <div class="sidebar">
@@ -28,11 +28,15 @@
             <span class="label">Settings</span>
         </div>
     </div>
-    <img src="{{ url_for('static', filename='img/logo2.gif') }}" alt="Descrição da Imagem" class="image-logo">
-    <div>
-        <h1>QUEM SOMOS</h1>
-        <h3>Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias tempora ullam ad similique inventore animi accusantium earum consequatur velit, dolores aliquam rerum unde eum commodi ex vero magni. Animi, quasi.</h3>
+
+    <div class="container">
+        <img src="{{ url_for('static', filename='img/logo2.gif') }}" alt="Descrição da Imagem" class="image-logo">
+        <h1 class="title">QUEM SOMOS</h1>
+        <h3 class="text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias tempora ullam ad similique inventore animi accusantium earum consequatur velit, dolores aliquam rerum unde eum commodi ex vero magni. Animi, quasi. Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi illo nemo minus laboriosam ducimus, assumenda officia, recusandae delectus vero fugit error! Libero atque velit esse similique repellendus saepe nostrum corporis?
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iusto reiciendis praesentium incidunt ipsa alias culpa eaque expedita repellendus nemo perferendis voluptatem nisi veniam rerum odio, nihil, dolorum velit in non?
+        </h3>
     </div>
+
     <script>
         function scrollToBottom() {
             var chatbox = document.querySelector('.chatbox');

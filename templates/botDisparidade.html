@@ -7,7 +7,7 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Anek+Devanagari:wght@100..800&display=swap');
     </style>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style/app.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/disparidade.css') }}">
 </head>
 <body>
     <div class="sidebar">
@@ -29,9 +29,19 @@
         </div>
     </div>
     <img src="{{ url_for('static', filename='img/logo2.gif') }}" alt="Descrição da Imagem" class="image-logo">
-    <div>
-        <h1>QUEM SOMOS</h1>
-        <h3>Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias tempora ullam ad similique inventore animi accusantium earum consequatur velit, dolores aliquam rerum unde eum commodi ex vero magni. Animi, quasi.</h3>
+    <div class="container">
+        <h1 class="anek-devanagari">Olá, sou o assistente Dave! Dê uma indicação de alguma das partes para classificarmos se há disparidade</h1>
+        <div id="chatbox" class="chatbox">
+            {% for message in messages %}
+            <div class="message {% if message.sender == 'user' %}user{% else %}bot{% endif %}">
+                <p>{{ message.text }}</p>
+            </div>
+            {% endfor %}
+        </div>
+        <form class="form" id="chat-form">
+            <textarea id="message" name="message" rows="3" cols="50"></textarea><br><br>
+            <input type="submit" value="Enviar">
+        </form>        
     </div>
     <script>
         function scrollToBottom() {
@@ -73,6 +83,46 @@
         //         scrollToBottom();
         //     }
         // });
+
+        document.querySelector('#chat-form').addEventListener('submit', function(event) {
+        event.preventDefault(); // Evita o recarregamento da página
+        var textarea = document.querySelector('#message');
+        var message = textarea.value;
+        
+        if (message.trim() !== '') {
+            var formData = new FormData(this);
+            fetch('/send_message', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                var chatbox = document.querySelector('.chatbox');
+                var userMessage = document.createElement('div');
+                userMessage.className = 'message user';
+                userMessage.textContent = message;
+                chatbox.appendChild(userMessage);
+                
+                var botMessage = document.createElement('div');
+                botMessage.className = 'message bot';
+                botMessage.textContent = data.bot_response;
+                chatbox.appendChild(botMessage);
+                
+                textarea.value = ''; // Limpa a área de texto
+                scrollToBottom();
+            })
+            .catch(error => console.error('Erro:', error));
+        }
+    });
+
+    function scrollToBottom() {
+        var chatbox = document.querySelector('.chatbox');
+        chatbox.scrollTop = chatbox.scrollHeight;
+    }
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        scrollToBottom();
+    });
     </script>
 </body>
 </html>

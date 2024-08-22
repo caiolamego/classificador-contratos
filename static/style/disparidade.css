@@ -10,6 +10,7 @@
     flex-direction: column;
     scroll-behavior: smooth;
     padding-bottom: 20px;
+    animation: zoomIn 2s ease-in-out;
 }
 
 .message:last-child {
@@ -21,6 +22,7 @@
     justify-content: center;
     text-align: center;
     align-content: center;
+    animation: zoomIn 2s ease-in-out;
 }
 
 .message {
@@ -49,12 +51,15 @@
     text-align: center;
     justify-content: center;
     align-content: center;
+    align-items: center;
+    justify-items: center;
 }
 
 .image-logo {
     max-width: 700px    ;
     margin-bottom: 20px;
     display: block; /* Garante que a imagem seja exibida como um bloco */
+    animation: zoomIn 2s ease-in-out;
 }
 
 textarea {
@@ -106,14 +111,30 @@ body {
     color: #ffffff;
 }
 
+@keyframes zoomIn {
+    from {
+        transform: scale(0); /* Começa com a logo invisível (0% do tamanho original) */
+        opacity: 0; /* Começa transparente */
+    }
+    to {
+        transform: scale(1); /* Termina com a logo em seu tamanho original */
+        opacity: 1; /* Fica completamente visível */
+    }
+}
+
 h1 {
     color: #ffffff;
     font-size: 20px;
     border-right: 5px solid;
-    width: 90%;
+    width: 950px;
     white-space: nowrap;
     margin: 50px;
+    margin-left: 0px;
     margin-top: 10px;
+    justify-content: center;
+    align-items: center;
+    justify-items: center;
+    align-content: center;
     margin-bottom: 30px;
     overflow: hidden;
     animation: 

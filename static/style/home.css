@@ -1,0 +1,143 @@
+body {
+    font-family: "Anek Devanagari", sans-serif; 
+    background-color: #000000;
+    color: #ffffff;
+    margin: 0; /* Remove margens padrão */
+    padding: 0; /* Remove preenchimento padrão */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Faz com que o body ocupe 100% da altura da viewport */
+    flex-direction: column;
+}
+
+.container {
+    text-align: center; /* Centraliza o texto dentro do container */
+}
+
+.title {
+    color: #ffffff;
+    font-size: 70px;
+    border-right: 5px solid;
+    width: 530px; /* Define a largura exata para a animação */
+    white-space: nowrap;
+    margin: 10px auto 30px auto; /* Centraliza horizontalmente */
+    overflow: hidden;
+    animation: 
+        typing 3s steps(96), /* O número de passos (steps) deve corresponder ao número de caracteres */
+        cursor .4s step-end infinite alternate;
+}
+
+.text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center; /* Centraliza o texto dentro do bloco */
+    width: 60%;
+    margin: 0 auto; /* Centraliza horizontalmente */
+    flex-direction: column; /* Garante que o conteúdo dentro de .text seja organizado verticalmente */
+    animation: zoomIn 2s ease-in-out; /* Aplica a animação de zoom */
+}
+@keyframes cursor {
+    50% { border-color: transparent; }
+}
+
+@keyframes typing {
+    from { width: 0; }
+    to { width: 530px }
+}
+
+.image-logo {
+    max-width: 400px;
+    margin: 0 auto 20px auto;
+    display: block;
+    animation: zoomIn 2s ease-in-out; /* Aplica a animação de zoom */
+}
+
+@keyframes zoomIn {
+    from {
+        transform: scale(0); /* Começa com a logo invisível (0% do tamanho original) */
+        opacity: 0; /* Começa transparente */
+    }
+    to {
+        transform: scale(1); /* Termina com a logo em seu tamanho original */
+        opacity: 1; /* Fica completamente visível */
+    }
+}
+
+.sidebar {
+    height: 80vh;
+    width: 60px;
+    background-color: #181818;
+    transition: width 0.3s ease;
+    overflow: hidden;
+    position: fixed;
+    left: 0;
+    top: 50%; /* Centraliza verticalmente */
+    transform: translateY(-50%); /* Ajusta para que a centralização seja correta */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+    border-radius: 15px;
+    margin-left: 20px;
+    justify-content: center; /* Centraliza os itens dentro da sidebar */
+    border: 1px solid white;
+}
+
+.sidebar:hover {
+    width: 200px;
+}
+
+.nav-item {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    cursor: pointer;
+    color: #ffffff;
+    transition: background-color 0.3s ease; /* Adiciona uma transição para a cor de fundo */
+}
+
+.nav-item img {
+    width: 35px; /* Ajuste o tamanho da imagem se necessário */
+    height: 35px; /* Garante que a altura da imagem seja igual à largura */
+    margin-right: 10px; /* Espaço entre a imagem e o texto */
+}
+
+.label {
+    font-size: 16px;
+    margin-left: 10px;
+    opacity: 0;
+    white-space: nowrap;
+    transition: opacity 0.3s ease;
+    display: flex;
+    align-items: center; /* Garante que o texto fique alinhado verticalmente com a imagem */
+}
+
+.sidebar:hover .label {
+    opacity: 1;
+}
+
+.icon-img {
+    width: 35px;
+    height: 35px; /* Ajusta a altura da imagem para igualar a largura */
+    object-fit: contain; /* Mantém a proporção da imagem */
+    transition: transform 0.3s ease; /* Adicione uma transição para o efeito de hover */
+    padding-left: 12px;
+}
+
+.sidebar:hover .icon-img {
+    transform: translateX(10px); /* Ajuste o deslocamento da imagem no hover */
+}
+
+.nav-item .icon-img {
+    width: 35px;
+    object-fit: contain; /* Mantém a proporção da imagem */
+    display: block; /* Garante que a imagem seja exibida como um bloco */
+    transition: transform 0.3s ease; /* Adicione uma transição para o efeito de hover */
+}
+
+.sidebar:hover .nav-item .icon-img {
+    transform: translateX(10px); /* Ajuste o deslocamento da imagem no hover */
+}

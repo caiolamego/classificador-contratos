@@ -7,7 +7,7 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Anek+Devanagari:wght@100..800&display=swap');
     </style>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style/app.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/disparidade.css') }}">
 </head>
 <body>
     <div class="sidebar">
@@ -15,11 +15,11 @@
             <img src="{{ url_for('static', filename='img/home.png') }}" alt="Descrição da Imagem" class="icon-img">
             <span class="label">Home</span>
         </div>
-        <div class="nav-item">
+        <div class="nav-item" onclick="redirectToBotDisparidade()">
             <img src="{{ url_for('static', filename='img/disparidade.png') }}" alt="Descrição da Imagem" class="icon-img">
             <span class="label">Disparidades</span>
         </div>
-        <div class="nav-item" onclick="redirectToContract()">
+        <div class="nav-item" onclick="redirectToBotContract()">
             <img src="{{ url_for('static', filename='img/attention.png') }}" alt="Descrição da Imagem" class="icon-img">
             <span class="label">Clausulas Abusivas</span>
         </div>
@@ -29,20 +29,6 @@
         </div>
     </div>
     <img src="{{ url_for('static', filename='img/logo2.gif') }}" alt="Descrição da Imagem" class="image-logo">
-    <div class="container">
-        <h1 class="anek-devanagari">Olá, sou o assistente Dave! Escreva uma Cláusula para classificarmos como abusiva ou não abusiva</h1>
-        <div id="chatbox" class="chatbox">
-            {% for message in messages %}
-            <div class="message {% if message.sender == 'user' %}user{% else %}bot{% endif %}">
-                <p>{{ message.text }}</p>
-            </div>
-            {% endfor %}
-        </div>
-        <form class="form" action="/send_message" method="post">
-            <textarea id="message" name="message" rows="3" cols="50"></textarea><br><br>
-            <input type="submit" value="Enviar">
-        </form>
-    </div>
     <script>
         function scrollToBottom() {
             var chatbox = document.querySelector('.chatbox');
@@ -83,6 +69,46 @@
         //         scrollToBottom();
         //     }
         // });
+
+        document.querySelector('#chat-form').addEventListener('submit', function(event) {
+        event.preventDefault(); // Evita o recarregamento da página
+        var textarea = document.querySelector('#message');
+        var message = textarea.value;
+        
+        if (message.trim() !== '') {
+            var formData = new FormData(this);
+            fetch('/send_message', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                var chatbox = document.querySelector('.chatbox');
+                var userMessage = document.createElement('div');
+                userMessage.className = 'message user';
+                userMessage.textContent = message;
+                chatbox.appendChild(userMessage);
+                
+                var botMessage = document.createElement('div');
+                botMessage.className = 'message bot';
+                botMessage.textContent = data.bot_response;
+                chatbox.appendChild(botMessage);
+                
+                textarea.value = ''; // Limpa a área de texto
+                scrollToBottom();
+            })
+            .catch(error => console.error('Erro:', error));
+        }
+    });
+
+    function scrollToBottom() {
+        var chatbox = document.querySelector('.chatbox');
+        chatbox.scrollTop = chatbox.scrollHeight;
+    }
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        scrollToBottom();
+    });
     </script>
 </body>
 </html>
