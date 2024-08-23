@@ -49,29 +49,40 @@
             var chatbox = document.querySelector('.chatbox');
             chatbox.scrollTop = chatbox.scrollHeight;
         }
-
+    
         function redirectToHome() {
             window.location.href = '/';
         }
-
+    
         function redirectToBotContract() {
             window.location.href = '/botContrato';
         }
-
+    
         function redirectToBotDisparidade() {
             window.location.href = '/botDisparidade';
         }
-
+    
         document.addEventListener('DOMContentLoaded', function() {
             scrollToBottom();
         });
-
+    
         const observer = new MutationObserver(scrollToBottom);
         observer.observe(document.querySelector('.chatbox'), { childList: true });
-
+    
         document.querySelector('#chat-form').addEventListener('submit', function(event) {
             event.preventDefault(); // Evita o recarregamento da página
             var formData = new FormData(this);
+    
+            // Adiciona a mensagem do nome do arquivo ao chat
+            var fileName = document.getElementById('file-name').textContent;
+            if (fileName !== 'Nenhum arquivo escolhido') {
+                var chatbox = document.querySelector('.chatbox');
+                var fileMessage = document.createElement('div');
+                fileMessage.className = 'message user';
+                fileMessage.textContent = `Você enviou o arquivo: ${fileName}`;
+                chatbox.appendChild(fileMessage);
+            }
+    
             fetch('/botContrato', {
                 method: 'POST',
                 body: formData
@@ -83,12 +94,12 @@
                 botMessage.className = 'message bot';
                 botMessage.textContent = data.bot_response;
                 chatbox.appendChild(botMessage);
-                
+    
                 scrollToBottom();
             })
             .catch(error => console.error('Erro:', error));
         });
-
+    
         // Atualiza o nome do arquivo selecionado
         document.getElementById('file-input').addEventListener('change', function() {
             const fileName = document.getElementById('file-name');
