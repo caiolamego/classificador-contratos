@@ -50,7 +50,8 @@ def send_message():
     # Processar a mensagem do usuário
     abusivas = identificar_clausulas_abusivas(user_message)
     if abusivas:
-        bot_response = f"Cláusulas abusivas encontradas: {', '.join(abusivas)}"
+        # Formata a lista de cláusulas abusivas com quebra de linha
+        bot_response = "Cláusulas abusivas encontradas:\n" + '\n'.join(f"- {clausula}" for clausula in abusivas)
     else:
         bot_response = "Nenhuma cláusula abusiva identificada."
 
@@ -58,6 +59,7 @@ def send_message():
 
     # Retorna a resposta como JSON para ser tratada pelo JavaScript
     return jsonify({'bot_response': bot_response})
+
 
 def extrair_texto_arquivo(file_path):
     texto = ""
@@ -72,6 +74,7 @@ def extrair_texto_arquivo(file_path):
     return texto
 
 @app.route('/botContrato', methods=['GET', 'POST'])
+@app.route('/botContrato', methods=['GET', 'POST'])
 def handle_botContrato():
     if request.method == 'POST':
         file = request.files['file']
@@ -85,7 +88,9 @@ def handle_botContrato():
             abusivas = identificar_clausulas_abusivas(texto)
             
             if abusivas:
-                bot_response = f"Cláusulas abusivas encontradas: {', '.join(abusivas)}"
+                # Cria uma resposta formatada com tópicos
+                abusivas_list = '\n'.join(f'- {abusiva}' for abusiva in abusivas)
+                bot_response = f"Cláusulas abusivas encontradas:\n{abusivas_list}"
             else:
                 bot_response = "Nenhuma cláusula abusiva identificada."
             

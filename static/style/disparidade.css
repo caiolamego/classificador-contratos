@@ -31,6 +31,22 @@
     margin-bottom: 10px;
     max-width: 60%;
     word-wrap: break-word;
+    opacity: 0; /* Começa invisível */
+    animation: fadeIn 0.5s ease-out forwards; /* Ajuste o tempo e tipo de animação conforme necessário */
+    margin: 10px 0;
+    text-align: left;
+    white-space: pre-wrap; /* Respeita quebras de linha */
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px); /* Transição suave vertical */
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .user {
