@@ -30,7 +30,7 @@
     </div>
     <img src="{{ url_for('static', filename='img/logo2.gif') }}" alt="Descrição da Imagem" class="image-logo">
     <div class="container">
-        <h1 class="anek-devanagari">Olá, sou o assistente Dave! Dê uma indicação de alguma das partes para classificarmos se há disparidade</h1>
+        <h1 class="anek-devanagari">Olá, sou o Assistente Jurídico! Dê uma indicação de alguma das partes para classificarmos se há disparidade</h1>
         <div id="chatbox" class="chatbox">
             {% for message in messages %}
             <div class="message {% if message.sender == 'user' %}user{% else %}bot{% endif %}">
