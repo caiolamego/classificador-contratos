@@ -2,8 +2,12 @@ import os
 import re
 
 import PyPDF2
+import spacy
 from flask import Flask, jsonify, render_template, request, url_for
 from werkzeug.utils import secure_filename
+
+# Carregar o modelo de linguagem do spaCy
+nlp = spacy.load("en_core_web_sm")
 
 app = Flask(__name__)
 
@@ -19,18 +23,26 @@ messages = []
 recomendacoes = []
 
 def identificar_clausulas_abusivas(texto):
-    abusivas = []
-    abusiva_padroes = [
-        "renúncia a direitos",
-        "obrigação excessiva",
-        "desvantagem exagerada",
-        "penalidades desproporcionais",
-        "cláusula unilateral",
-    ]
-    for padrao in abusiva_padroes:
-        if padrao in texto.lower():
-            abusivas.append(padrao)
-    return abusivas
+    abusivas_keywords = ["todas e quaisquer despesas", "unilateral", "obrigado a contratar seguro"]
+    doc = nlp(texto)
+    abusivas_clausulas = []
+
+    for sent in doc.sents:
+        if any(keyword in sent.text.lower() for keyword in abusivas_keywords):
+            abusivas_clausulas.append(sent.text)
+
+    return abusivas_clausulas
+
+def identificar_clausulas_importantes(texto):
+    importantes_keywords = ["registros", "tarifas", "multa"]
+    doc = nlp(texto)
+    importantes_clausulas = []
+
+    for sent in doc.sents:
+        if any(keyword in sent.text.lower() for keyword in importantes_keywords):
+            importantes_clausulas.append(sent.text)
+   
+    return importantes_clausulas
 
 def avaliar_contrato(contrato):
 
@@ -64,6 +76,22 @@ def avaliar_contrato(contrato):
 
     return recomendacoes
 
+def extrair_texto_arquivo(file_path):
+    texto = ""
+    if file_path.endswith('.txt'):
+        with open(file_path, 'r', encoding='utf-8') as file:
+            texto = file.read()
+    elif file_path.endswith('.pdf'):
+        with open(file_path, 'rb') as file:
+            reader = PyPDF2.PdfReader(file)
+            for page in reader.pages:
+                page_text = page.extract_text()
+                # Remover quebras de linha extras e espaços desnecessários
+                page_text = re.sub(r'\n+', ' ', page_text)  # Substituir múltiplas quebras de linha por um espaço
+                page_text = re.sub(r' +', ' ', page_text)  # Substituir múltiplos espaços por um único
+                texto += page_text.strip() + " "  # Adicionar um espaço após cada página para separar as páginas
+    return texto
+
 @app.route('/')
 def home():
     return render_template('home.html')
@@ -82,13 +110,7 @@ def send_message():
     messages.append({'sender': 'user', 'text': user_message})
 
     # Processar a mensagem do usuário
-    #abusivas = avaliar_contrato(user_message)
     bot_response = "Possíveis disparidades encontradas:\n" + '\n'.join(f"- {recomendacao}" for recomendacao in avaliar_contrato(user_message))
-    # if abusivas:
-    #     # Formata a lista de cláusulas abusivas com quebra de linha
-    #     bot_response = "Possíveis disparidades encontradas:\n" + '\n'.join(f"- {recomendacao}" for recomendacao in recomendacoes)
-    # else:
-    #     bot_response = "Nenhuma cláusula abusiva identificada."
 
     messages.append({'sender': 'bot', 'text': bot_response})
 
@@ -96,20 +118,6 @@ def send_message():
     # Retorna a resposta como JSON para ser tratada pelo JavaScript
     return jsonify({'bot_response': bot_response})
 
-
-def extrair_texto_arquivo(file_path):
-    texto = ""
-    if file_path.endswith('.txt'):
-        with open(file_path, 'r', encoding='utf-8') as file:
-            texto = file.read()
-    elif file_path.endswith('.pdf'):
-        with open(file_path, 'rb') as file:
-            reader = PyPDF2.PdfReader(file)
-            for page in reader.pages:
-                texto += page.extract_text()
-    return texto
-
-@app.route('/botContrato', methods=['GET', 'POST'])
 @app.route('/botContrato', methods=['GET', 'POST'])
 def handle_botContrato():
     if request.method == 'POST':
@@ -122,13 +130,21 @@ def handle_botContrato():
             # Extrair texto do arquivo e identificar cláusulas abusivas
             texto = extrair_texto_arquivo(file_path)
             abusivas = identificar_clausulas_abusivas(texto)
+            importantes = identificar_clausulas_importantes(texto)
             
             if abusivas:
                 # Cria uma resposta formatada com tópicos
                 abusivas_list = '\n'.join(f'- {abusiva}' for abusiva in abusivas)
-                bot_response = f"Cláusulas abusivas encontradas:\n{abusivas_list}"
+                bot_response = f"CLÁUSULAS ABUSIVAS ENCONTRADAS:\n{abusivas_list}"
             else:
                 bot_response = "Nenhuma cláusula abusiva identificada."
+
+            if importantes:
+                # Cria uma resposta formatada com tópicos
+                importantes_list = '\n'.join(f'- {importante}' for importante in importantes)
+                bot_response += f"\n\nCLÁUSULA(S) PARA O CONSUMIDOR SE ATENTAR AOS VALORES:\n{importantes_list}"
+            else:
+                bot_response += "Não identifiquei cláusulas para se atentar aos valores."
             
             # Remover o arquivo após o processamento
             os.remove(file_path)
@@ -139,4 +155,5 @@ def handle_botContrato():
 
 if __name__ == '__main__':
     app.run(debug=True, port=5001)
+
 
